@@ -1,2 +1,28 @@
-<h1>Blogs#index</h1>
-<p>Find me in app/views/blogs/index.html.erb</p>
+<p id="notice"><%= notice %></p>
+
+<div class="toppage">
+  <h1 class="top">カレンダー</h1>
+  <br>
+
+  <br>
+  <div class="col-md-8">
+    <%= month_calendar events: @blogs do |date, blogs| %>
+      <%= link_to blog_path(date, params: { date: "#{date.year}-#{date.month}-#{date.day}" }) do %>
+        <%= date.day %>
+      <% end %>
+      <br>
+      <br>
+
+      <% total_expense = @expenses_by_date[date]  %>
+      <% if total_expense.present? %>  
+        <div class="total_price">
+          <%= total_expense %> 円
+        </div>
+      <% end %>
+
+      <% blogs.each do |blog| %>
+          <%= link_to blog.title, blog %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
